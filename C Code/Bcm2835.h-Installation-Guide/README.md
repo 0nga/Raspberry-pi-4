@@ -7,7 +7,7 @@ To install the library i followed the tutorial @ https://raspberry-projects.com/
 
 
 ### Download steps
-In the commands below change the .XX to match the current library version number, e.g. “.37”.
+In the commands below change the .XX to match the current library version number, e.g. “.73”.
 
 If you are using the GUI then open the command prompt using Menu > Other > LXTerminal
 
