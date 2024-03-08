@@ -1,4 +1,5 @@
-/* Author: Generated with chatgpt and modified by Andrea Ongarini */
+/* Author: Generated with chatgpt and modified by Andrea Ongarini 
+ * currently not working */
 
 #include <bcm2835.h>
 #include <stdio.h>
