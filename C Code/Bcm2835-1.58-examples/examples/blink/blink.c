@@ -19,8 +19,8 @@
 #include <bcm2835.h>
 #include <stdio.h>
 
-// Blinks on RPi Plug P1 pin 12 (which is GPIO pin 18)
-#define PIN RPI_GPIO_P1_12
+// Blinks on RPi Plug P1 pin 11 (which is GPIO pin 17)
+#define PIN RPI_GPIO_P1_11
 
 int main(int argc, char **argv)
 {
@@ -35,21 +35,21 @@ int main(int argc, char **argv)
     bcm2835_gpio_fsel(PIN, BCM2835_GPIO_FSEL_OUTP);
 
     // Blink
-    while (1){
+    while (1)
+    {
 	// Turn it on
 	bcm2835_gpio_write(PIN, HIGH);
-	printf("ON\n");
 	
 	// wait a bit
-	bcm2835_delay(1000);
+	bcm2835_delay(500);
 	
 	// turn it off
 	bcm2835_gpio_write(PIN, LOW);
-	printf("OFF\n");
-
+	
 	// wait a bit
-	bcm2835_delay(1000);
+	bcm2835_delay(500);
     }
     bcm2835_close();
     return 0;
 }
+
