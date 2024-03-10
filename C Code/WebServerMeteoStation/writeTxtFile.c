@@ -1,103 +1,58 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <bcm2835.h>
-
-/*
-int main() {
-    FILE *htmlFile;
-
-    for(;;){
-        
-    // Open the HTML file in write mode
-    htmlFile = fopen("index.html", "w");
-
-    // Check if file was opened successfully
-    if (htmlFile == NULL) {
-        printf("Unable to create file.\n");
-        return 1;
-    }
-
-    // Write HTML content into the file
-    fprintf(htmlFile, "<!DOCTYPE html>\n");
-    fprintf(htmlFile, "<html>\n");
-    fprintf(htmlFile, "<head>\n");
-    fprintf(htmlFile, "<title>Meteo Station</title>\n");
-    fprintf(htmlFile, "</head>\n");
-    fprintf(htmlFile, "<body>\n");
-    
-        int temperature = rand()%10;
-        int humidity = rand()%10;
-        int lux = rand()%10;
- 
-
-        // Print variable values into the HTML
-        fprintf(htmlFile, "<h1>Variable Values</h1>\n");
-        fprintf(htmlFile, "<p>Temperature: %d C</p>\n", temperature);
-        fprintf(htmlFile, "<p>Humidity: %d</p>\n", humidity);
-        fprintf(htmlFile, "<p>Lux: %d</p>\n", lux);
-
-        // Close the HTML file
-        fprintf(htmlFile, "</body>\n");
-        fprintf(htmlFile, "</html>\n");
-        fclose(htmlFile);
-        bcm2835_delay(1000); //1 second delay
-    }
-
-    printf("HTML file generated successfully.\n");
-
-    return 0;
-}*/
-
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h> // Include the header file for sleep()
-
-
+	
 int main() {
     
     FILE *file;
     char *filename = "./data.txt";
-    
-    // Attempt to delete the existing file
-    if (remove(filename) != 0) {
-        perror("Error deleting the file");
-    } else {
-        printf("File deleted successfully\n");
-    }
+    int sensorReading = 0;
 
-    while (1) {
+    for(;;){
+	sensorReading=rand()%10000;
+	
+	// Attempt to delete the existing file
+	if (remove(filename) != 0) {
+		perror("Error deleting the file");
+	}
+	else {
+		printf("File deleted successfully\n");
+	}
         
-        // Open the file in "w" mode 
+        // Open the file in "w" mode (override file content)
         file = fopen(filename, "w");
+        
         if (file == NULL) {
-            fprintf(stderr, "Error opening file.\n");
+            printf("Error opening file\n");
             exit(1);
         }
+	else{
+	    printf("File opened correctly\n");
+	}
 
-        // Continuously write to the file
-    
-        int temperature = rand()%10;
-
-        // Write formatted time to the file
-        fprintf(file, "Temperature: %d C", temperature);
-
+		
+	
+	fprintf(file, "Sensor Value: %d\n", sensorReading);
+	printf("Sensor Value: %d\n", sensorReading);
+	
+        
         // Flush the output buffer to ensure the data is written to the file immediately
         fflush(file);
+        printf("File flushed\n");
 
-        // Sleep for 1 second (optional)
         // This is to prevent the loop from running too fast and overwhelming the system
         // You can adjust this value based on your requirement
-        sleep(2);
-    
+        sleep(1);
 
         // Close the file
         fclose(file);
+        printf("file closed\n");
+        sleep(1);		//wait 1 sec
+
     }
     return 0;
 }
-
+  
+    
+  
