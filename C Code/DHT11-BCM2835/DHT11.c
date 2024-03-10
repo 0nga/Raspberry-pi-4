@@ -3,8 +3,10 @@
 #include <bcm2835.h>
 #include <stdio.h>
 
-#define DHT_PIN RPI_GPIO_P1_07  // GPIO pin for DHT11
+#define DHT_PIN RPI_V2_GPIO_P1_07  // GPIO pin for DHT11
 
+
+/* Read data from DHT11 sensor and convert it into integer */
 int read_dht11(uint8_t *temperature, uint8_t *humidity) {
     
     uint8_t data[5] = {0, 0, 0, 0, 0}; // 5 Bytes from DHT11
