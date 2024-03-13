@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read Text File</title>
+    <title>Meteo Station</title>
+</head>
+
+<body>
+    <h1>Meteo station</h1>
+     <div id="lastRow"></div>
+
     <script>
         // Function to reload the page
         function reloadPage() {
             location.reload(true); // Reload the page from the server
         }
 
-        // Reload the page every 5 seconds
+        // Reload the page every 2 seconds
         setInterval(reloadPage, 2000);
 
         // Function to fetch and display the content of the text file
-        window.onload = function() {
-            // Function to fetch the content of the text file
-            function fetchTextFile(url) {
-                fetch(url)
-                    .then(response => response.text())
-                    .then(text => {
-                        // Display the text content in the pre element
-                        document.getElementById('content').textContent = text;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching the text file:', error);
-                    });
-            }
+        function fetchData() {
+             fetch('./data.csv')
+            .then(response => response.text())
+            .then(csvData => {
+				 // Split CSV data by lines
+                 var csvRows = csvData.trim().split('\n');
+                 // Get the last line
+                 var lastRow = csvRows[csvRows.length - 1];
+                 // Split the last row by comma
+                 var values = lastRow.split(',');
+                 // Prepare HTML to display
+                 var html = '<p>' + values[0] + ': ' + values[1] + '</p>';
+                 // Set the HTML content
+                document.getElementById('lastRow').innerHTML = html; //piazzo il contenuto all'interno dell'elemento che ha id = lastRow
+            })
+        }
 
-            // Call fetchTextFile function with the URL of your text file
-            fetchTextFile('data.txt');
-        };
+        // Call fetchData on window load
+        window.onload = fetchData;
     </script>
-</head>
-<body>
-    <div>
-        <h1>Meteo station</h1>
-        <pre id="content"></pre>
-    </div>
+   
 </body>
+
 </html>
