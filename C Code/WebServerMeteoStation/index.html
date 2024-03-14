@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Meteo Station</title>
-</head>
+	<head>
+   		 <meta charset="UTF-8">
+   		 <title>Meteo Station</title>
+	</head>
 
-<body>
-    <h1>Meteo station</h1>
-     <div id="lastRow"></div>
+	<body>
+		    <h1>Meteo station</h1>
+    
+		    <!-- Creo un div con un certo identificatore, con lo script dopo passo un pezzo di html a questo div 
+		l'html generato conterrà i dati prelevati dal file csv --->
+	    	 <div id='lastRow'></div> 
+	    <script>
+		 
+		function reloadPage() {
+		    location.reload(true); 
+		}
+		
+		setInterval(reloadPage, 3454);
 
-    <script>
-        // Function to reload the page
-        function reloadPage() {
-            location.reload(true); // Reload the page from the server
-        }
+		function fetchData() {
+		    fetch('./data.csv')
+		    .then(response => response.text())
+		    .then(csvData => {
+		    var csvRows = csvData.trim().split('\n');
+		    var lastRow = csvRows[csvRows.length - 1];
+		    var values = lastRow.split(',');
+		    var html = '<p>Temperature: ' + values[0] + ' C  Humidity: ' + values[1] + ' % </p>';
+		    document.getElementById('lastRow').innerHTML = html;
+		})
+		.catch(error => console.error('Error fetching data:', error));
+		}
 
-        // Reload the page every 2 seconds
-        setInterval(reloadPage, 2000);
-
-        // Function to fetch and display the content of the text file
-        function fetchData() {
-             fetch('./data.csv')
-            .then(response => response.text())
-            .then(csvData => {
-				 // Split CSV data by lines
-                 var csvRows = csvData.trim().split('\n');
-                 // Get the last line
-                 var lastRow = csvRows[csvRows.length - 1];
-                 // Split the last row by comma
-                 var values = lastRow.split(',');
-                 // Prepare HTML to display
-                 var html = '<p>' + values[0] + ': ' + values[1] + '</p>';
-                 // Set the HTML content
-                document.getElementById('lastRow').innerHTML = html; //piazzo il contenuto all'interno dell'elemento che ha id = lastRow
-            })
-        }
-
-        // Call fetchData on window load
-        window.onload = fetchData;
-    </script>
-   
-</body>
-
+		window.onload = fetchData;
+	    </script>
+	
+	</body>
 </html>
+
