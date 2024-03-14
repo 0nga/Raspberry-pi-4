@@ -3,7 +3,7 @@
 #include <bcm2835.h>
 #include <stdio.h>
 
-#define DHT_PIN RPI_V2_GPIO_P1_07  // GPIO pin for DHT11
+#define DHT_PIN RPI_BPLUS_GPIO_J8_07   // GPIO pin for DHT11
 
 
 /* Read data from DHT11 sensor and convert it into integer */
@@ -77,7 +77,7 @@ int main() {
 		} else {
 			printf("Failed to read data from DHT11\n");
 		}
-		bcm2835_delay(1500);
+		bcm2835_delay(2000);
 	}
 	
     bcm2835_close();
