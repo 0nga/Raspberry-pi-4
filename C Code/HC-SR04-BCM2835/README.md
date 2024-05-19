@@ -6,7 +6,7 @@ First of all u need to install BCM2835.h library (guide @ https://github.com/0ng
 ### Connect the components
 Download the .c source file, connect all the components as shown in the figure below
 
-![Circuit](RPi-HCSR04.png)
+![Circuit](RPI-HCSR04.png)
 
 
 Make sure to run the .exe as a root, otherwise u won't have acces to the system timer and the st_read() function will fail silently giving 0 as output. Like shown in the next figure
